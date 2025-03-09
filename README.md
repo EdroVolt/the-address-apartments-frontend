@@ -19,7 +19,7 @@ A modern web application built with Next.js and React for managing and showcasin
 ### Local Development Setup
 ```bash
 # Clone repository
-git clone https://github.com/your-username/the-address-apartments-frontend.git
+git clone https://github.com/EdroVolt/the-address-apartments-frontend.git
 cd the-address-apartments-frontend
 
 # Install dependencies
