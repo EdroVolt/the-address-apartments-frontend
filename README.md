@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Address Apartments - Frontend
 
-## Getting Started
+## Project Overview
+A modern web application built with Next.js and React for managing and showcasing luxury apartment listings. Provides users with an intuitive interface to explore properties, view details, and manage reservations.
 
-First, run the development server:
+## Key Features
+- Responsive property listings with filtering
+- Interactive image galleries
+- User authentication system
+- Admin dashboard for property management
+- Integration with backend API services
 
+## Installation
+
+### Prerequisites
+- Node.js v20+
+- npm v9+
+
+### Local Development Setup
 ```bash
+# Clone repository
+git clone https://github.com/your-username/the-address-apartments-frontend.git
+cd the-address-apartments-frontend
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Docker Deployment
+```bash
+# Build Docker image
+docker build -t address-frontend .
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Run container
+docker run -p 3000:3000 address-frontend
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Configuration
+Create a `.env.local` file with:
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+```
 
-## Learn More
+## Development
+- `npm run dev` - Start development server
+- `npm run build` - Create production build
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint checks
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
+### Vercel
+1. Push changes to GitHub repository
+2. Import project in Vercel dashboard
+3. Configure environment variables
+4. Deploy!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Docker Production
+```bash
+docker compose up --build -d
+```
