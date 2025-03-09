@@ -34,8 +34,13 @@ export default function RegisterPage() {
     try {
       await register(formData);
       router.push('/'); // Redirect to home page after successful registration
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to register');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response) {
+        const responseData = err.response.data as { message?: string };
+        setError(responseData.message || "Failed to register");
+      } else {
+        setError("Failed to register");
+      }
     } finally {
       setIsLoading(false);
     }

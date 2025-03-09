@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ApartmentFormData, LoginFormData, RegisterFormData } from '@/types';
+import { Apartment, ApartmentFormData, LoginFormData, RegisterFormData } from '@/types';
 
 // Create axios instance with base configuration
 const api = axios.create({
@@ -30,7 +30,7 @@ export const apartmentsApi = {
   },
   
   // Get apartment by ID
-  getById: async (id: number) => {
+  getById: async (id: number): Promise<Apartment> => {
     const response = await api.get(`/apartments/${id}`);
     return response.data;
   },

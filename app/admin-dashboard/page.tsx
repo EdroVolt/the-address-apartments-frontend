@@ -63,7 +63,7 @@ export default function AdminDashboard() {
         const data = await apartmentsApi.getAll();
         setApartments(data);
         setFetchError(null);
-      } catch (err: any) {
+      } catch (err: unknown) {
         setFetchError("Failed to fetch apartments");
         console.error("Error fetching apartments:", err);
       }
@@ -96,8 +96,13 @@ export default function AdminDashboard() {
       // Refresh apartment list
       const newData = await apartmentsApi.getAll();
       setApartments(newData);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to create apartment");
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response) {
+        const responseData = err.response.data as { message?: string };
+        setError(responseData.message || "Failed to create apartment");
+      } else {
+        setError("Failed to create apartment");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -244,7 +249,7 @@ export default function AdminDashboard() {
                 <FormField
                   control={form.control}
                   name="image"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel>Apartment Image</FormLabel>
                       <FormControl>

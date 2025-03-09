@@ -12,10 +12,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   try {
-    const apartment = await apartmentsApi.getById(parseInt(params.id));
+    const { id } = await params;
+    const apartment = await apartmentsApi.getById(parseInt(id));
     return {
       title: `${apartment.name} | The Address Apartments`,
       description: apartment.description.substring(0, 160),
@@ -40,9 +41,10 @@ async function getApartment(id: string) {
 export default async function ApartmentDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const apartment: Apartment | null = await getApartment(params.id);
+  const { id } = await params;
+  const apartment: Apartment | null = await getApartment(id);
 
   if (!apartment) {
     notFound();

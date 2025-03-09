@@ -22,8 +22,13 @@ export default function LoginPage() {
     try {
       await login({ email, password });
       router.push('/'); // Redirect to home page after successful login
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to login');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response) {
+        const responseData = err.response.data as { message?: string };
+        setError(responseData.message || "Failed to login");
+      } else {
+        setError("Failed to create apartment");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +59,10 @@ export default function LoginPage() {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium mb-1"
+              >
                 Password
               </label>
               <input
@@ -73,16 +81,12 @@ export default function LoginPage() {
               </div>
             )}
 
-            <Button
-              type="submit"
-              className="w-full mb-4"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+            <Button type="submit" className="w-full mb-4" disabled={isLoading}>
+              {isLoading ? "Signing in..." : "Sign In"}
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              Don't have an account?{' '}
+              Don not have an account?{" "}
               <Link href="/register" className="text-primary hover:underline">
                 Register
               </Link>
